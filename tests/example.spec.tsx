@@ -1,12 +1,15 @@
+import * as React from "react";
+// demo of a test file containing jsx which breaks
 import { test, expect } from "@playwright/test";
 
-// the test appears to crash because of this import
-import { unrelatedString } from "./demo";
+const Example = { Provider: () => <p></p> };
+const Unrelated = () => {
+  // the test appears to crash because of this code
+  return <Example.Provider></Example.Provider>;
+};
 
 test("homepage has title and links to intro page", async ({ page }) => {
   await page.goto("https://playwright.dev/");
-
-  console.log(unrelatedString);
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
